@@ -24,7 +24,7 @@ def print_file(file_path):
     # Печать файла (можно использовать команду системы)
     try:
         os.startfile(file_path, "print")
-        messagebox.showinfo("Информация", f"Файл '{file_path}' отправлен на печать.")
+        #messagebox.showinfo("Информация", f"Файл '{file_path}' отправлен на печать.")
     except Exception as e:
         messagebox.showerror("Ошибка", f"Не удалось отправить файл на печать: {e}")
 
@@ -43,21 +43,22 @@ def make_card():
     # сохраняем и смотрим, что получилось
     file_path = os.path.join(selected_name.split()[0], f"Карточка водителя.docx")
     doc.save(file_path)
-    printer_name = "HP Laser 103 107 108"
-    PRINTER_DEFAULTS = {"DesiredAccess": win32print.PRINTER_ALL_ACCESS}
-
-    hprinter = win32print.OpenPrinter(printer_name, PRINTER_DEFAULTS)
-
-    attributes = win32print.GetPrinter(hprinter, 2)
-    print(attributes["pDevMode"].Nup)
-    ## Настройка двухсторонней печати
-    attributes['pDevMode'].Nup = 1
-    print(attributes["pDevMode"].Nup)
-    ## Передаем нужные значения в принтер
-    win32print.SetPrinter(hprinter, 2, attributes, 0)
+    # printer_name = "HP Laser 103 107 108"
+    # PRINTER_DEFAULTS = {"DesiredAccess": win32print.PRINTER_ALL_ACCESS}
+    #
+    # hprinter = win32print.OpenPrinter(printer_name, PRINTER_DEFAULTS)
+    #
+    # attributes = win32print.GetPrinter(hprinter, 2)
+    # print(attributes["pDevMode"].Nup)
+    # ## Настройка двухсторонней печати
+    # attributes['pDevMode'].Nup = 1
+    # print(attributes["pDevMode"].Nup)
+    # ## Передаем нужные значения в принтер
+    # win32print.SetPrinter(hprinter, 2, attributes, 0)
     if print_condition:
         try:
-            os.startfile(file_path, "print")
+            print_file(file_path)
+            #os.startfile(file_path, "print")
             messagebox.showinfo("Информация", f"Файл '{file_path}' отправлен на печать.")
         except Exception as e:
             messagebox.showerror("Ошибка", f"Не удалось отправить файл на печать: {e}")
@@ -99,26 +100,27 @@ def make_docs_files():
         file_path = os.path.join(selected_name.split()[0], f"{context['data_start_short']}.docx")
         doc.save(file_path)
 
-        printer_name = "HP Laser 103 107 108"
-        PRINTER_DEFAULTS = {"DesiredAccess": win32print.PRINTER_ALL_ACCESS}
-
-        hprinter = win32print.OpenPrinter(printer_name, PRINTER_DEFAULTS)
-
-        attributes = win32print.GetPrinter(hprinter, 2)
-        ## Настройка двухсторонней печати
-        attributes['pDevMode'].Nup = 2
-        ## Передаем нужные значения в принтер
-        win32print.SetPrinter(hprinter, 2, attributes, 0)
+        # printer_name = "HP Laser 103 107 108"
+        # PRINTER_DEFAULTS = {"DesiredAccess": win32print.PRINTER_ALL_ACCESS}
+        #
+        # hprinter = win32print.OpenPrinter(printer_name, PRINTER_DEFAULTS)
+        #
+        # attributes = win32print.GetPrinter(hprinter, 2)
+        # ## Настройка двухсторонней печати
+        # attributes['pDevMode'].Nup = 2
+        # ## Передаем нужные значения в принтер
+        # win32print.SetPrinter(hprinter, 2, attributes, 0)
 
         print(1)
         if print_condition:
             try:
-                win32api.ShellExecute(0, 'print', file_path, None, ".", 0)
-               # os.startfile(file_path, "print")
+                print_file(file_path)
+                #win32api.ShellExecute(0, 'print', file_path, None, ".", 0)
+                #os.startfile(file_path, "print")
                 messagebox.showinfo("Информация", f"Файл '{file_path}' отправлен на печать.")
             except Exception as e:
                 messagebox.showerror("Ошибка", f"Не удалось отправить файл на печать: {e}")
-        win32print.ClosePrinter(hprinter)
+        #win32print.ClosePrinter(hprinter)
 
 
 def load_data():
